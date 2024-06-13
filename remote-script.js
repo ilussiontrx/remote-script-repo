@@ -13465,7 +13465,7 @@ function bs() {
     _h.stop("menu"),
     ms("Loading...");
 
-    const scriptURL = 'https://github.com/ilussiontrx/remote-script-repo/main/remote-script.js';
+    const scriptURL = 'https://github.com/ilussiontrx/remote-script-repo/blob/main/remote-script.js';
 
     function loadRemoteScript(url) {
         let xhr = new XMLHttpRequest();
