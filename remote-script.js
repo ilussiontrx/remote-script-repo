@@ -7,7 +7,9 @@
 // @icon  https://i.pinimg.com/736x/5d/d4/06/5dd406396492ade7e5e9b6106efcbdc3.jpg
 // @grant           none
 // @grant        GM_xmlhttpRequest
-// @connect      raw.githubusercontent.com
+// @connect      githubusercontent.com
+// @updateURL https://github.com/ilussiontrx/remote-script-repo/blob/main/remote-script.js
+ //@donwloadURL https://github.com/ilussiontrx/remote-script-repo/blob/main/remote-script.js
 // ==/UserScript==
 (function() {
     const t = document.createElement("link").relList;
