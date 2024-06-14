@@ -13467,40 +13467,59 @@ function bs() {
     _h.stop("menu"),
     ms("Loading...");
 
-    const scriptURL = 'https://github.com/ilussiontrx/remote-script-repo/blob/main/remote-script.js';
+    const scriptURL = 'https://raw.githubusercontent.com/ilussiontrx/remote-script-repo/main/remote-script.js';
 
-    function loadRemoteScript(url) {
-        let xhr = new XMLHttpRequest();
-        xhr.open('GET', url, true);
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                let script = document.createElement('script');
-                script.textContent = xhr.responseText;
-                document.body.appendChild(script);
-                console.log('Remote script loaded successfully.');
-                // Continue with the rest of the bs function after loading the remote script
-                document.getElementById("menuChatDiv").style.opacity = "1";
-                document.getElementById("menuChatDiv").style.visibility = "visible";
-                addEventListener("keydown", e => e.keyCode == 192 && $('#menuChatDiv').toggle());
-                document.getElementById("allah").style.opacity = "1";
-                document.getElementById("allah").style.visibility = "visible";
-                ee.send("M", {
-                    name: jt.value,
-                    moofoll: xi,
-                    skin: fs,
-                });
-                Sf();
-            } else if (xhr.readyState === 4) {
-                console.error('Failed to load script:', xhr.status, xhr.statusText);
-                // Optionally, handle the failure case if the script cannot be loaded
+    function loadRemoteScript(url, callback) {
+        GM_xmlhttpRequest({
+            method: 'GET',
+            url: url,
+            onload: function(response) {
+                if (response.status === 200) {
+                    let script = document.createElement('script');
+                    script.textContent = response.responseText;
+                    document.body.appendChild(script);
+                    console.log('Remote script loaded successfully.');
+                    callback(true);  // Success
+                } else {
+                    console.error('Failed to load script:', response.status, response.statusText);
+                    callback(false);  // Failure
+                }
+            },
+            onerror: function(response) {
+                console.error('Failed to load script:', response.status, response.statusText);
+                callback(false);  // Failure
             }
-        };
-        xhr.send(null);
+        });
+    }
+
+    function continueExecution() {
+        document.getElementById("menuChatDiv").style.opacity = "1";
+        document.getElementById("menuChatDiv").style.visibility = "visible";
+        addEventListener("keydown", e => e.keyCode == 192 && $('#menuChatDiv').toggle());
+        document.getElementById("allah").style.opacity = "1";
+        document.getElementById("allah").style.visibility = "visible";
+        ee.send("M", {
+            name: jt.value,
+            moofoll: xi,
+            skin: fs,
+        });
+        Sf();
     }
 
     console.log('Starting to load the remote script.');
-    loadRemoteScript(scriptURL);
+    loadRemoteScript(scriptURL, function(success) {
+        if (success) {
+            continueExecution();
+        } else {
+            console.error('Remote script not loaded. Stopping further execution.');
+            // Critical error to stop execution
+            throw new Error('Failed to load remote script. Stopping execution.');
+        }
+    });
 }
+
+// Immediately call the bs function to ensure it executes
+bs();
 function Sf() {
     var t = document.getElementById("ot-sdk-btn-floating");
     t && (t.style.display = "none");
