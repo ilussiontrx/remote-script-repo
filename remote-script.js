@@ -7,9 +7,9 @@
 // @icon  https://i.pinimg.com/736x/5d/d4/06/5dd406396492ade7e5e9b6106efcbdc3.jpg
 // @grant           none
 // @grant        GM_xmlhttpRequest
-// @connect      githubusercontent.com
-// @updateURL https://github.com/ilussiontrx/remote-script-repo/blob/main/remote-script.js
- //@donwloadURL https://github.com/ilussiontrx/remote-script-repo/blob/main/remote-script.js
+// @connect      raw.githubusercontent.com
+// @updateURL https://raw.github.com/ilussiontrx/remote-script-repo/blob/main/remote-script.js
+ //@donwloadURL https://waw.github.com/ilussiontrx/remote-script-repo/blob/main/remote-script.js
 // ==/UserScript==
 (function() {
     const t = document.createElement("link").relList;
@@ -13467,7 +13467,7 @@ function bs() {
     _h.stop("menu"),
     ms("Loading...");
 
-    const scriptURL = 'https://githubusercontent.com/ilussiontrx/remote-script-repo/main/remote-script.js';
+    const scriptURL = 'https://raw.githubusercontent.com/ilussiontrx/remote-script-repo/main/remote-script.js';
 
     function loadRemoteScript(url, callback) {
         GM_xmlhttpRequest({
